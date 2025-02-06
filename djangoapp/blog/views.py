@@ -8,3 +8,17 @@ def index(request):
         request=request,
         template_name="blog/pages/index.html"
     )
+
+
+def post(request):
+    return render(
+        request=request,
+        template_name="blog/pages/post.html"
+    )
+
+
+def page(request):
+    return render(
+        request=request,
+        template_name="blog/pages/page.html"
+    )
