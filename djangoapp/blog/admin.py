@@ -2,7 +2,7 @@
 from django.contrib import admin
 from blog.models import Tag, Category, Page, Post
 
-# Register your models here.
+# Register your models here..
 
 
 @admin.register(Tag)
