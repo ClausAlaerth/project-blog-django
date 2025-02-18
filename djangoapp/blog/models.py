@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from utils.images import resize_image
 from django_summernote.models import AbstractAttachment
 
-# Create your models here.
+# Create your models here..
 
 
 class PostAttachment(AbstractAttachment):
