@@ -3,6 +3,7 @@ from utils.rands import slugify_new
 from django.contrib.auth.models import User
 from utils.images import resize_image
 from django_summernote.models import AbstractAttachment
+from django.urls import reverse
 
 # Create your models here..
 
@@ -98,10 +99,21 @@ class Page(models.Model):
         return self.title
 
 
+class PostManager(models.Manager):
+    def get_published(self):
+        return (
+            self
+            .filter(is_published=True)
+            .order_by("-pk")
+        )
+
+
 class Post(models.Model):
     class Meta:
         verbose_name = "Post"
         verbose_name_plural = "Posts"
+
+    objects = PostManager()
 
     title = models.CharField(max_length=65,)
     slug = models.SlugField(
@@ -114,7 +126,7 @@ class Post(models.Model):
         help_text=(
             "Este campo precisará estar marcado "
             "para que a página seja exibida publicamente."
-        )
+        ),
     )
     content = models.TextField()
     cover = models.ImageField(upload_to="posts/%Y/%m", blank=True, default="")
@@ -146,6 +158,14 @@ class Post(models.Model):
 
     tags = models.ManyToManyField(Tag, blank=True, default="")
 
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        if not self.is_published:
+            return reverse("blog:index")
+        return reverse("blog:post", args=(self.slug,))
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify_new(self.title, 10)
@@ -163,6 +183,3 @@ class Post(models.Model):
             resize_image(self.cover, 900, True, 70)
 
         return super_save
-
-    def __str__(self):
-        return self.title
