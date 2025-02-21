@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from blog.models import Post, Page
-from django.db.models import Q, QuerySet
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.views.generic import ListView
