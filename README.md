@@ -8,6 +8,12 @@ Para utilizar o aplicativo Django, lembre-se de instalar as dependências presen
 
 * O aplicativo em desenvolvimento está configurado para utilizar Docker, portanto instale-o também, caso contrário, configure o banco de sua escolha;
 
+Primeiramente, crie o seu super-usuário, que será utilizado para acessar o ambiente administrativo do Django:
+
+```
+python(sua-versao) manage.py createsuperuser
+```
+
 Em casos de divergência com o uso do Docker, para iniciar a aplicação execute os seguintes comandos, para inicializar um servidor local de desenvolvimento em seu localhost:
 
 ```
